@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://d10hlstbw84p"
-path="res://.godot/imported/Poppins-Italic.ttf-48e7aabce7157c6f9f8d204ac64de1b0.fontdata"
+uid="uid://csb0766hruxgk"
+path="res://.godot/imported/Poppins-Light.ttf-187e2d9d15e1fcc7e5b4d95d8fa2c1d5.fontdata"
 
 [deps]
 
-source_file="res://Assets/Fonts/Poppins-Italic.ttf"
-dest_files=["res://.godot/imported/Poppins-Italic.ttf-48e7aabce7157c6f9f8d204ac64de1b0.fontdata"]
+source_file="res://Assets/Fonts/Poppins-Light.ttf"
+dest_files=["res://.godot/imported/Poppins-Light.ttf-187e2d9d15e1fcc7e5b4d95d8fa2c1d5.fontdata"]
 
 [params]
 

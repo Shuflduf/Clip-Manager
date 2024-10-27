@@ -154,7 +154,9 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_w8hy8")
 
+[connection signal="clip_deleted" from="HBoxContainer/MarginContainer2/ScrollContainer/Clips" to="." method="_on_clips_clip_deleted"]
 [connection signal="clip_opened" from="HBoxContainer/MarginContainer2/ScrollContainer/Clips" to="." method="_on_clips_clip_opened"]
+[connection signal="clip_opened_in_explorer" from="HBoxContainer/MarginContainer2/ScrollContainer/Clips" to="." method="_on_clips_clip_opened_in_explorer"]
 [connection signal="clip_selected" from="HBoxContainer/MarginContainer2/ScrollContainer/Clips" to="." method="_on_clips_clip_selected"]
 [connection signal="gui_input" from="HBoxContainer/MarginContainer2/ScrollContainer/Clips" to="." method="_on_clips_gui_input"]
 [connection signal="new_tag_requested" from="HBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Tags" to="." method="_on_tags_new_tag_requested"]

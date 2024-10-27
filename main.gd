@@ -76,6 +76,9 @@ func _on_clips_clip_selected(clip: Clip) -> void:
 		var new_tag = tag_scene.instantiate()
 		%Tags.add_child(new_tag)
 		new_tag.tag = i
+		
+		if i == i.to_upper():
+			new_tag.highlight()
 
 func make_filename() -> String:
 	var filename = ""
@@ -100,3 +103,17 @@ func _on_refresh_pressed() -> void:
 		i.queue_free()
 	
 	_ready()
+
+
+func _on_clips_clip_opened_in_explorer(clip: Clip) -> void:
+	OS.shell_show_in_file_manager(target_folder + "/" + clip.file_path)
+
+
+func _on_clips_clip_deleted(clip: Clip) -> void:
+	if clip ==  active_clip:
+		for i in %Tags.get_children():
+			i.queue_free()
+		active_clip = null
+	
+	clip.queue_free()
+	DirAccess.remove_absolute(target_folder + "/" + clip.file_path)

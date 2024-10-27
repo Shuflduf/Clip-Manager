@@ -25,6 +25,7 @@ LineEdit/styles/normal = SubResource("StyleBoxFlat_m0l8u")
 custom_minimum_size = Vector2(250, 0)
 theme_override_styles/panel = SubResource("StyleBoxFlat_7k5p3")
 script = ExtResource("1_u8i4a")
+highlighted_color = Color(0.61, 0.53314, 0.2806, 1)
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 2

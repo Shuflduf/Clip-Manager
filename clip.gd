@@ -26,3 +26,30 @@ func _on_gui_input(event: InputEvent) -> void:
 				select()
 				if event.double_click:
 					get_parent().clip_opened.emit(self)
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				$RightClick.show()
+				$RightClick.position = \
+					event.position + Vector2(10, 10) + position
+
+
+func _on_right_click_index_pressed(index: int) -> void:
+	match index:
+		0:
+			get_parent().clip_opened.emit(self)
+		1:
+			get_parent().clip_opened_in_explorer.emit(self)
+		2:
+			$RightClick/PopupPanel.show()
+		
+
+
+func _on_popup_panel_close_requested() -> void:
+	$RightClick/PopupPanel.hide()
+
+
+func _on_delete_pressed() -> void:
+	get_parent().clip_deleted.emit(self)
+
+
+func _on_keep_pressed() -> void:
+	_on_popup_panel_close_requested()
