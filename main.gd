@@ -16,28 +16,26 @@ func _ready() -> void:
 	for file in DirAccess.get_files_at(target_folder):
 		if !file.ends_with(".mp4"):
 			continue
-		
-		var thumbnail_path = "user://cache/" + file.replace(".mp4", ".png")
-		var arguments = [
-					"-i", target_folder + "/" + file,
-					"-vf", "select=eq(n\\,0)",
-					"-q:v", "3",
-					ProjectSettings.globalize_path(thumbnail_path)
-				]
-
-		OS.execute("ffmpeg", arguments)
-		
+			
 		var new_clip = clip_scene.instantiate()
 		%Clips.add_child(new_clip)
-		
-		var image = Image.new()
-		var err = image.load(thumbnail_path)
-		if err != OK:
-			print(err)
-		var texture = ImageTexture.create_from_image(image)
-		new_clip.texture.texture = texture
-		
 		new_clip.file_path = file
+		
+		var thumbnail_path = "user://cache/" + file.replace(".mp4", ".png")
+		var thumb_renderer = ThumbnailRenderer.new()
+		thumb_renderer.thread.start(
+			thumb_renderer.make_thumbnail.bind(
+				target_folder + "/" + file
+			)
+		)
+		
+		thumb_renderer.completed.connect(
+			set_texture.bind(
+				new_clip, thumbnail_path
+			)
+		)
+
+		
 		
 		var unix = FileAccess.get_modified_time(target_folder + "/" + file)
 		var time = Time.get_datetime_dict_from_unix_time(unix)
@@ -46,7 +44,14 @@ func _ready() -> void:
 				str(time["day"]) + ", " + \
 				str(time["year"])
 		new_clip.label.text = time_string
-		
+
+func set_texture(clip: Clip, image_path):
+	var image = Image.new()
+	var err = image.load(image_path)
+	if err != OK:
+		print(err)
+	var texture = ImageTexture.create_from_image(image)
+	clip.texture.texture = texture
 
 func _on_new_tag_pressed() -> void:
 	if active_clip == null:
@@ -87,7 +92,6 @@ func make_filename() -> String:
 		filename += "-"
 	filename = filename.trim_suffix("-")
 	filename += ".mp4"
-	print(filename)
 	return filename
 
 
