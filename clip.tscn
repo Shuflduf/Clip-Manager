@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcw6byestgh6w"]
+
+[ext_resource type="Texture2D" uid="uid://bm4151fiiqjfe" path="res://icon.svg" id="1_g2d64"]
+[ext_resource type="Script" path="res://clip.gd" id="1_t3y5f"]
+[ext_resource type="FontFile" uid="uid://b80gaa8tr65sc" path="res://Assets/Fonts/Poppins-Medium.ttf" id="2_0514h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbq0l"]
+bg_color = Color(0.131742, 0.131742, 0.131742, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.133333, 0.133333, 0.133333, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4oo5"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_vbg3t"]
+font = ExtResource("2_0514h")
+font_color = Color(0.560955, 0.560955, 0.560955, 1)
+
+[node name="Clip" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_lbq0l")
+script = ExtResource("1_t3y5f")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Corners" type="PanelContainer" parent="VBoxContainer"]
+clip_children = 1
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_i4oo5")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/Corners"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+texture = ExtResource("1_g2d64")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "aaa"
+label_settings = SubResource("LabelSettings_vbg3t")
+horizontal_alignment = 1
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

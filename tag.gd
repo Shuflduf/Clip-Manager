@@ -1,4 +1,3 @@
-@tool
 extends PanelContainer
 
 @onready var line_edit: LineEdit = $LineEdit
@@ -14,5 +13,8 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
 		queue_free()
 		return
 	
+	#get_parent
 	line_edit.release_focus()
+	tag = new_text
 	get_parent().new_tag_requested.emit()
+	
