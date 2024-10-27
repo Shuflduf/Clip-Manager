@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3 uid="uid://b20okmvvv0lbo"]
+
+[ext_resource type="PackedScene" uid="uid://c1wqqi6o7q7gc" path="res://tag.tscn" id="1_c0kr4"]
+[ext_resource type="Script" path="res://main.gd" id="1_mvdym"]
+[ext_resource type="Texture2D" uid="uid://cyljrys1bon5y" path="res://Assets/Icons/add.svg" id="2_chitn"]
+[ext_resource type="FontFile" uid="uid://b80gaa8tr65sc" path="res://Assets/Fonts/Poppins-Medium.ttf" id="2_g7qbu"]
+[ext_resource type="Script" path="res://tags.gd" id="3_7u0co"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tspsn"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pgoto"]
+bg_color = Color(0.1862, 0.282403, 0.49, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n5lk4"]
+bg_color = Color(0.3276, 0.42336, 0.63, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qoy2q"]
+bg_color = Color(0.1147, 0.195545, 0.37, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="Theme" id="Theme_ppnxp"]
+default_font = ExtResource("2_g7qbu")
+Button/font_sizes/font_size = 20
+Button/styles/hover = SubResource("StyleBoxFlat_pgoto")
+Button/styles/normal = SubResource("StyleBoxFlat_n5lk4")
+Button/styles/pressed = SubResource("StyleBoxFlat_qoy2q")
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mvdym")
+tag_scene = ExtResource("1_c0kr4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Tags" type="VBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 45
+script = ExtResource("3_7u0co")
+
+[node name="Tag" parent="HBoxContainer/MarginContainer/VBoxContainer/Tags" instance=ExtResource("1_c0kr4")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxFlat_tspsn")
+
+[node name="NewTag" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(250, 30)
+layout_mode = 2
+focus_mode = 0
+theme = SubResource("Theme_ppnxp")
+text = "Add New Tag"
+icon = ExtResource("2_chitn")
+expand_icon = true
+
+[connection signal="new_tag_requested" from="HBoxContainer/MarginContainer/VBoxContainer/Tags" to="." method="_on_tags_new_tag_requested"]
+[connection signal="pressed" from="HBoxContainer/MarginContainer/VBoxContainer/NewTag" to="." method="_on_new_tag_pressed"]

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1wqqi6o7q7gc"]
+
+[ext_resource type="FontFile" uid="uid://b80gaa8tr65sc" path="res://Assets/Fonts/Poppins-Medium.ttf" id="1_b4w46"]
+[ext_resource type="Script" path="res://tag.gd" id="1_u8i4a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7k5p3"]
+bg_color = Color(0.195, 0.25675, 0.39, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 15.0
+expand_margin_top = 15.0
+expand_margin_right = 15.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0l8u"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Theme" id="Theme_saelt"]
+LineEdit/fonts/font = ExtResource("1_b4w46")
+LineEdit/styles/normal = SubResource("StyleBoxFlat_m0l8u")
+
+[node name="Tag" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 0)
+theme_override_styles/panel = SubResource("StyleBoxFlat_7k5p3")
+script = ExtResource("1_u8i4a")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_saelt")
+placeholder_text = "Enter Tag"
+max_length = 15
+expand_to_text_length = true
+
+[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
